@@ -8,7 +8,8 @@ sum() {
     local -r numbers=("$@")
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     local sum=0
-    for i in "${tape[@]}"; do
+    local i
+    for i in "${numbers[@]}"; do
         (( sum += i ))
     done
     echo $sum
@@ -19,7 +20,7 @@ sum() {
 solve() {
     local -r tape=("$@")
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if (( "${#tape[@]}" < 2 )); then
+    if (( ${#tape[@]} < 2 )); then
         echo -1
         return 0
     fi
