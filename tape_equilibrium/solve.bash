@@ -20,6 +20,7 @@ sum() {
 solve() {
     local -r tape=("$@")
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    # ${#tape[@]} must be number, hence quotes are missing.
     if (( ${#tape[@]} < 2 )); then
         echo -1
         return 0
@@ -51,10 +52,9 @@ run_test() {
     #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     local -r actual_result=$(solve "${tape[@]}")
     if (( actual_result != expected_min_difference )); then
-        printf 'Min difference in tape ['
-        printf '%d, ' "${tape[@]}"
-        printf '] should equal to %d, not %d\n' "$expected_min_difference" \
-                                                "$actual_result"
+        cat <<- EOF
+		Min difference in tape [${tape[@]}] should equal to $expected_min_difference, not $actual_result.
+		EOF
         exit 1
     fi
 }
